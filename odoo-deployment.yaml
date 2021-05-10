@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo-deployment
+  labels:
+    app: odoo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      containers:
+      - name: odoo
+        image: odoo:12.0
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+        - containerPort: 8069
+        envFrom:
+          - configMapRef:
+              name: odoo-config-map
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: odoo-service
+spec:
+  selector:
+    app: odoo
+  ports:
+  - protocol: TCP
+    port: 8069
+    targetPort: 8069
+  type: NodePort
