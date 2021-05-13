@@ -5,7 +5,7 @@
         <field name="name">show only installed modules</field>
         <field name="model_id" ref="model_ir_module_module"/>
         <field eval="True" name="global"/>
-        <field name="domain_force">[('state','=','installed')]</field>
+        <field name="domain_force">[('id','=',0)]</field>
     </record>
 </data>
 </odoo>
