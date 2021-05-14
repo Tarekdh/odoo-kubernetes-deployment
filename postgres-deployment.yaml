@@ -26,9 +26,22 @@ spec:
             cpu: "0.2"
         ports:
         - containerPort: 5432
-        envFrom:
-          - configMapRef:
-              name: postgres-config-map
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config-map
+                key: db
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: password
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: data-volume
@@ -36,7 +49,7 @@ spec:
       - name: data-volume
         hostPath:
           # chemin du dossier sur l'hôte
-          path: /pg-data5
+          path: /pg-data7
           # ce champ est optionnel
           type: DirectoryOrCreate #Directory
 ---

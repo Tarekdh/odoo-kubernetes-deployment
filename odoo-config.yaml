@@ -5,6 +5,7 @@ metadata:
   labels:
     app: odoo
 data:
-  HOST: postgres-service
-  USER: odoo
-  PASSWORD: admin
+  host: postgres-service
+  username: odoo
+  password: admin
+  # you should use secrets for production to secure database

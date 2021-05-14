@@ -26,9 +26,22 @@ spec:
             cpu: "0.2"
         ports:
         - containerPort: 8069
-        envFrom:
-          - configMapRef:
-              name: odoo-config-map
+        env:
+          - name: HOST
+            valueFrom:
+              configMapKeyRef:
+                name: odoo-config-map
+                key: host
+          - name: USER
+            valueFrom:
+              secretKeyRef: #use secrets for production to secure your credentials
+                name: database-secret
+                key: username
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: database-secret
+                key: password
         volumeMounts:
         - mountPath: /etc/odoo
           name: config-volume
