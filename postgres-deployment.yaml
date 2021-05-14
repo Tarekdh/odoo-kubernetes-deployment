@@ -36,9 +36,38 @@ spec:
       - name: data-volume
         hostPath:
           # chemin du dossier sur l'hôte
-          path: /pg-data
+          path: /pg-data5
           # ce champ est optionnel
           type: DirectoryOrCreate #Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer-deployment
+  labels:
+    app: adminer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+      - name: adminer
+        image: adminer
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+        - containerPort: 8080
 ---
 kind: Service
 apiVersion: v1
@@ -51,4 +80,17 @@ spec:
   - protocol: TCP
     port: 5432
     targetPort: 5432
+  type: LoadBalancer
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: adminer-service
+spec:
+  selector:
+    app: adminer
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
   type: LoadBalancer
