@@ -44,21 +44,21 @@ spec:
   type: LoadBalancer
 apiVersion: networking.k8s.io/v1beta1
 
----
-kind: Ingress
-metadata:
-  name: ingress-example
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - host: foo.bar.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: odoo-service
-            port:
-              number: 8069
+#---
+# kind: Ingress
+# metadata:
+#   name: ingress-example
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   rules:
+#   - host: foo.bar.com
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: odoo-service
+#             port:
+#               number: 8069
