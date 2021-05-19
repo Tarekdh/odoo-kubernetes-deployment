@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Ingress
+metadata:
+  name: certsign
+  namespace: sign
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0" # Don't limit POST data
+spec:
+  rules:
+  - host: tarek.oodev.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: odoo-service
+          servicePort: 8069
+  tls:
+    - hosts:
+        - tarek.oodev.io
