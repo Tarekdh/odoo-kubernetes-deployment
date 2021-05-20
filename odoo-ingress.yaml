@@ -1,19 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: certsign
-  namespace: sign
+  name: test-ingress
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "0" # Don't limit POST data
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: tarek.oodev.io
-    http:
+  - http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: odoo-service
-          servicePort: 8069
-  tls:
-    - hosts:
-        - tarek.oodev.io
+          service:
+            name: odoo-service
+            port:
+              number: 8069
