@@ -29,16 +29,16 @@ spec:
         envFrom:
           - configMapRef:
               name: postgres-config-map
-        volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: data-volume
-      volumes:
-      - name: data-volume
-        hostPath:
-          # chemin du dossier sur l'hôte
-          path: /pg-data5
-          # ce champ est optionnel
-          type: DirectoryOrCreate #Directory
+      #   volumeMounts:
+      #   - mountPath: /var/lib/postgresql/data
+      #     name: data-volume
+      # volumes:
+      # - name: data-volume
+      #   hostPath:
+      #     # chemin du dossier sur l'hôte
+      #     path: /pg-data3005
+      #     # ce champ est optionnel
+      #     type: DirectoryOrCreate #Directory
 ---
 apiVersion: apps/v1
 kind: Deployment
