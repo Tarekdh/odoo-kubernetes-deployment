@@ -69,7 +69,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/odoo
-  tag: 14
+  tag: 16.0.20221115-debian-11-r13
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -390,11 +390,11 @@ initContainers: []
 service:
   ## @param service.type Odoo service type
   ##
-  type: NodePort
+  type: LoadBalancer
   ## @param service.ports.http Odoo service HTTP port
   ##
   ports:
-    http: 8069
+    http: 80
   ## @param service.nodePorts.http NodePort for the Odoo HTTP endpoint
   ## NOTE: choose port between <30000-32767>
   ##
